@@ -3,6 +3,7 @@ import streamlit as st
 import requests
 from gtts import gTTS
 from dotenv import load_dotenv
+import base64
 
 load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
@@ -47,10 +48,26 @@ if st.button("Generate Story"):
         st.session_state.story_count += 1
 
         audio_path = generate_audio(story)
-        audio_file = open(audio_path, "rb")
-        st.audio(audio_file.read(), format="audio/mp3")
+        with open(audio_path, "rb") as audio_file:
+            audio_bytes = audio_file.read()
+            b64 = base64.b64encode(audio_bytes).decode()
+
+        st.markdown(
+            f"""
+            <audio controls autoplay>
+                <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+            """,
+            unsafe_allow_html=True
+        )
 
         st.markdown("### 📖 Your Story")
         st.write(story)
 
-        
+        st.markdown("### Did you enjoy the story?")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.button("👍 Yes")
+        with col2:
+            st.button("👎 No")
