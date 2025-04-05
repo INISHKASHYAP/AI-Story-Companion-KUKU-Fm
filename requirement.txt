@@ -1,4 +1,5 @@
 streamlit
-gtts
+
 python-dotenv
 requests
+gtts
