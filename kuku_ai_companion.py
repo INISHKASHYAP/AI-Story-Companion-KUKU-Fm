@@ -32,13 +32,13 @@ def generate_audio(text, filename="story.mp3"):
     return filename
 
 st.set_page_config(page_title="AI Story Companion", page_icon="📖")
-st.title("🎧 AI Story Companion")
+st.title("AI Story Companion")
 st.markdown("Get a mood-based AI-generated story with voice narration!")
 
 if "story_count" not in st.session_state:
     st.session_state.story_count = 0
 
-st.markdown(f"### 📊 Stories played: {st.session_state.story_count}")
+st.markdown(f"### Stories played: {st.session_state.story_count}")
 
 mood = st.selectbox("Choose your mood:", ["Happy", "Sad", "Adventurous", "Romantic", "Calm", "Curious"])
 
